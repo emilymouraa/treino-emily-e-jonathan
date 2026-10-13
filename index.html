@@ -37,18 +37,12 @@ button.tab.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weig
 </head>
 <body>
 <main>
-<h1>🌅 Treino do Casal</h1>
+<h1>Treino do Casal - Emily e Dodô</h1>
 <p class="sub">20 minutos por dia, em casa, sem equipamento. Aquecimento 3 min → circuito 14 min (3 voltas, 15 s de descanso entre exercícios) → alongamento 3 min.</p>
 
 <div class="who" id="who"></div>
 <div class="days" id="days"></div>
 <div id="out"></div>
-
-<div class="note">
-<b>Sobre os resultados:</b> não dá para escolher onde o corpo perde gordura, mas treinar glúteo médio e máximo melhora o formato do quadril e do culote, e o treino de core fortalece a cintura. Definir o abdômen (tanquinho) depende muito da alimentação. Sono e proteína também ajudam.<br><br>
-<b>Joelho dele:</b> evite agachar fundo e saltos. Faça os movimentos devagar (3 s na descida). Se a dor continuar ou piorar, procure um ortopedista ou fisioterapeuta.<br><br>
-<b>Progressão:</b> semana 1 faça 2 voltas, semanas 2 em diante faça 3. Quando ficar fácil, aumente 2 a 3 repetições ou o tempo.
-</div>
 </main>
 <script>
 const WARM=[["Marcha no lugar","1 min","marcha no lugar aquecimento"],["Círculos com os braços","30 s","circulos de braco aquecimento"],["Rotação de quadril","30 s","rotação de quadril aquecimento"],["Agachamento raso (só até meia descida)","10x","agachamento raso aquecimento"]];
@@ -79,7 +73,7 @@ const gi=q=>"https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
 function ex(e,key){const id=key+e[0];return `<label class="ex ${done[id]?'done':''}"><input type="checkbox" ${done[id]?'checked':''} data-id="${id.replace(/"/g,'')}"><div><div><span class="n">${e[0]}</span> · <span class="r">${e[1]}</span></div><div class="links"><a href="${yt(e[2])}" target="_blank" rel="noopener">▶ Vídeo</a><a href="${gi(e[2])}" target="_blank" rel="noopener">🖼 Imagens</a></div></div></label>`}
 function render(){
 document.documentElement.style.setProperty('--acc',who==='ela'?'var(--her)':'var(--him)');
-document.getElementById('who').innerHTML=[["ela","👩 Ela"],["ele","👨 Ele"]].map(([k,l])=>`<button class="tab ${who===k?'on':''}" data-who="${k}">${l}</button>`).join('');
+document.getElementById('who').innerHTML=[["ela","👩Emily"],["ele","👨Dodo"]].map(([k,l])=>`<button class="tab ${who===k?'on':''}" data-who="${k}">${l}</button>`).join('');
 document.getElementById('days').innerHTML=D.map((d,i)=>`<button class="tab ${day===i?'on':''}" data-day="${i}">${d}</button>`).join('');
 const k=who+day;let h='';
 if(day===6){h+=`<div class="focus"><b>Domingo: descanso ativo</b>Deixe o corpo recuperar. Façam juntos!</div><div class="sec">Hoje</div>`+REST.map(e=>ex(e,k)).join('');}
