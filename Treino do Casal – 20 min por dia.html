@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Treino do Casal – 20 min por dia</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fbf7f4;--card:#fff;--tx:#2a2230;--mut:#6e6577;--bd:#eadfe0;--her:#d6336c;--him:#1971c2;--acc:var(--her)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17131b;--card:#221c28;--tx:#f3eef6;--mut:#a99fb3;--bd:#372e3f}}
+:root[data-theme="dark"]{--bg:#17131b;--card:#221c28;--tx:#f3eef6;--mut:#a99fb3;--bd:#372e3f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.6rem;margin:.2em 0}
+.sub{color:var(--mut);margin:0 0 16px}
+.days,.who{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
+button.tab{flex:0 0 auto;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:9px 14px;border-radius:999px;font:inherit;cursor:pointer}
+button.tab.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.who button{flex:1}
+.focus{background:var(--card);border:1px solid var(--bd);border-left:5px solid var(--acc);border-radius:12px;padding:12px 14px;margin:8px 0 14px}
+.focus b{display:block;font-size:1.1rem}
+.sec{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:18px 0 8px}
+.ex{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:8px}
+.ex input{width:22px;height:22px;margin-top:2px;accent-color:var(--acc);flex:0 0 auto}
+.ex.done{opacity:.55}.ex.done .n{text-decoration:line-through}
+.n{font-weight:600}.r{color:var(--acc);font-weight:700}
+.links{margin-top:4px;font-size:.88rem}
+.links a{color:var(--acc);margin-right:14px;text-decoration:none;font-weight:500}
+.links a:hover{text-decoration:underline}
+.note{background:var(--card);border:1px dashed var(--bd);border-radius:12px;padding:12px 14px;margin-top:20px;font-size:.92rem;color:var(--mut)}
+.note b{color:var(--tx)}
+.prog{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0 0}
+.prog i{display:block;height:100%;width:0;background:var(--acc);transition:width .25s}
+</style>
+</head>
+<body>
+<main>
+<h1>🌅 Treino do Casal</h1>
+<p class="sub">20 minutos por dia, em casa, sem equipamento. Aquecimento 3 min → circuito 14 min (3 voltas, 15 s de descanso entre exercícios) → alongamento 3 min.</p>
+
+<div class="who" id="who"></div>
+<div class="days" id="days"></div>
+<div id="out"></div>
+
+<div class="note">
+<b>Sobre os resultados:</b> não dá para escolher onde o corpo perde gordura, mas treinar glúteo médio e máximo melhora o formato do quadril e do culote, e o treino de core fortalece a cintura. Definir o abdômen (tanquinho) depende muito da alimentação. Sono e proteína também ajudam.<br><br>
+<b>Joelho dele:</b> evite agachar fundo e saltos. Faça os movimentos devagar (3 s na descida). Se a dor continuar ou piorar, procure um ortopedista ou fisioterapeuta.<br><br>
+<b>Progressão:</b> semana 1 faça 2 voltas, semanas 2 em diante faça 3. Quando ficar fácil, aumente 2 a 3 repetições ou o tempo.
+</div>
+</main>
+<script>
+const WARM=[["Marcha no lugar","1 min","marcha no lugar aquecimento"],["Círculos com os braços","30 s","circulos de braco aquecimento"],["Rotação de quadril","30 s","rotação de quadril aquecimento"],["Agachamento raso (só até meia descida)","10x","agachamento raso aquecimento"]];
+const WARM_HIM=[["Marcha no lugar","1 min","marcha no lugar aquecimento"],["Círculos com os braços","30 s","circulos de braco aquecimento"],["Elevação de calcanhar","15x","elevação de calcanhar panturrilha"],["Ponte de glúteo leve","10x","ponte de glúteo"]];
+const COOL=[["Frente da coxa (em pé)","30 s/lado","alongamento quadríceps em pé"],["Posterior de coxa","30 s/lado","alongamento posterior de coxa"],["Posição da criança","30 s","posição da criança alongamento"],["Peito e ombros","30 s","alongamento peitoral"]];
+const D=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
+const T={
+ela:{
+0:["Glúteo A: volume e formato",[["Ponte de glúteo","15x","ponte de glúteo"],["Agachamento sumô","15x","agachamento sumô"],["Coice de glúteo (quatro apoios)","12x/perna","coice de glúteo"],["Hidrante (fire hydrant)","12x/perna","fire hydrant exercício"],["Prancha","30 s","prancha abdominal"]]],
+1:["Cintura e core",[["Prancha lateral","25 s/lado","prancha lateral"],["Bicicleta no ar","20x","abdominal bicicleta"],["Elevação de pernas (joelhos dobrados)","12x","elevação de pernas abdominal"],["Dead bug","10x/lado","dead bug exercício"],["Vacuum abdominal","4x 15 s","vacuum abdominal"]]],
+2:["Pernas firmes",[["Agachamento","15x","agachamento livre"],["Afundo alternado","10x/perna","afundo alternado"],["Subida na cadeira (step-up)","10x/perna","step up cadeira"],["Elevação de calcanhar","20x","elevação de panturrilha"],["Agachamento na parede","30 s","agachamento isométrico parede"]]],
+3:["Quadril e culote",[["Elevação lateral de perna (deitada)","15x/lado","elevação lateral de perna deitada"],["Passos laterais agachada","12x/lado","passo lateral agachado"],["Ponte com uma perna","8x/lado","ponte de glúteo unilateral"],["Abertura de joelho (clamshell)","15x/lado","clamshell exercício"],["Hidrante","15x/perna","fire hydrant exercício"]]],
+4:["Glúteo B: ênfase em força",[["Ponte com pausa de 2 s","15x","ponte de glúteo com pausa"],["Stiff unilateral (sem peso)","10x/perna","stiff unilateral sem peso"],["Coice de glúteo","15x/perna","coice de glúteo"],["Agachamento búlgaro (pé no sofá)","8x/perna","agachamento búlgaro sofá"],["Superman","12x","superman exercício costas"]]],
+5:["Queima total",[["Polichinelo","40 s","polichinelo"],["Mountain climber","30 s","mountain climber"],["Flexão com joelhos apoiados","10x","flexão joelhos apoiados"],["Agachamento com salto (suave)","10x","agachamento com salto"],["Prancha","30 s","prancha abdominal"]]]},
+ele:{
+0:["Abdômen: definição",[["Prancha","40 s","prancha abdominal"],["Bicicleta no ar","20x","abdominal bicicleta"],["Elevação de pernas (joelhos levemente dobrados)","12x","elevação de pernas abdominal"],["Dead bug","10x/lado","dead bug exercício"],["Prancha com toque no ombro","20x","prancha toque no ombro"]]],
+1:["Braços e peito",[["Flexão de braço","12x","flexão de braço"],["Flexão diamante","8x","flexão diamante"],["Mergulho na cadeira (tríceps)","12x","mergulho tríceps cadeira"],["Flexão pike (ombros)","8x","pike push up"],["Prancha alta para baixa","10x","prancha alta para baixa"]]],
+2:["Joelho forte A",[["Ponte de glúteo","15x","ponte de glúteo"],["Agachamento na parede (até 60°)","30 s","agachamento isométrico parede"],["Elevação de calcanhar","20x","elevação de panturrilha"],["Elevação de ponta do pé (tibial)","15x","elevação de ponta do pé tibial anterior"],["Step-up em degrau baixo (3 s na descida)","10x/perna","step up degrau baixo joelho"],["Elevação de perna estendida deitado","12x/perna","elevação de perna estendida quadríceps"]]],
+3:["Core e costas",[["Prancha lateral","25 s/lado","prancha lateral"],["Superman","12x","superman exercício costas"],["Mountain climber lento","30 s","mountain climber"],["Abdominal crunch","15x","abdominal crunch"],["Flexão fechada (tríceps)","10x","flexão fechada tríceps"]]],
+4:["Braços definidos",[["Flexão de braço","15x","flexão de braço"],["Mergulho na cadeira","15x","mergulho tríceps cadeira"],["Flexão aberta","10x","flexão aberta"],["Prancha","40 s","prancha abdominal"],["Flexão pike","8x","pike push up"]]],
+5:["Joelho forte B",[["Ponte com uma perna","8x/lado","ponte de glúteo unilateral"],["Agachamento até a cadeira (lento)","12x","agachamento na cadeira"],["Afundo reverso curto","8x/perna","afundo reverso"],["Abertura de joelho (clamshell)","15x/lado","clamshell exercício"],["Elevação de calcanhar","20x","elevação de panturrilha"]]]}
+};
+const REST=[["Caminhada leve ao ar livre","20 min","caminhada leve benefícios"],["Alongamento completo ou yoga suave","10 min","yoga alongamento iniciante"]];
+let who="ela",day=Math.min(6,(new Date().getDay()+6)%7);
+const done={};
+const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q+" execução correta");
+const gi=q=>"https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
+function ex(e,key){const id=key+e[0];return `<label class="ex ${done[id]?'done':''}"><input type="checkbox" ${done[id]?'checked':''} data-id="${id.replace(/"/g,'')}"><div><div><span class="n">${e[0]}</span> · <span class="r">${e[1]}</span></div><div class="links"><a href="${yt(e[2])}" target="_blank" rel="noopener">▶ Vídeo</a><a href="${gi(e[2])}" target="_blank" rel="noopener">🖼 Imagens</a></div></div></label>`}
+function render(){
+document.documentElement.style.setProperty('--acc',who==='ela'?'var(--her)':'var(--him)');
+document.getElementById('who').innerHTML=[["ela","👩 Ela"],["ele","👨 Ele"]].map(([k,l])=>`<button class="tab ${who===k?'on':''}" data-who="${k}">${l}</button>`).join('');
+document.getElementById('days').innerHTML=D.map((d,i)=>`<button class="tab ${day===i?'on':''}" data-day="${i}">${d}</button>`).join('');
+const k=who+day;let h='';
+if(day===6){h+=`<div class="focus"><b>Domingo: descanso ativo</b>Deixe o corpo recuperar. Façam juntos!</div><div class="sec">Hoje</div>`+REST.map(e=>ex(e,k)).join('');}
+else{const [t,list]=T[who][day];
+h+=`<div class="focus"><b>${t}</b>3 voltas · descanse 15 s entre exercícios</div>`;
+h+=`<div class="sec">1 · Aquecimento (3 min)</div>`+(who==='ele'?WARM_HIM:WARM).map(e=>ex(e,k+'w')).join('');
+h+=`<div class="sec">2 · Circuito (14 min)</div>`+list.map(e=>ex(e,k)).join('');
+h+=`<div class="sec">3 · Alongamento (3 min)</div>`+COOL.map(e=>ex(e,k+'c')).join('');}
+h=`<div class="prog"><i id="bar"></i></div>`+h;
+document.getElementById('out').innerHTML=h;bar();}
+function bar(){const b=document.querySelectorAll('#out input');const c=[...b].filter(x=>x.checked).length;const el=document.getElementById('bar');if(el)el.style.width=(b.length?c/b.length*100:0)+'%'}
+document.addEventListener('click',e=>{const t=e.target;if(t.dataset.who){who=t.dataset.who;render()}else if(t.dataset.day){day=+t.dataset.day;render()}});
+document.addEventListener('change',e=>{if(e.target.type==='checkbox'){done[e.target.dataset.id]=e.target.checked;e.target.closest('.ex').classList.toggle('done',e.target.checked);bar()}});
+render();
+</script>
+</body>
+</html>
